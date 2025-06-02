@@ -1,10 +1,7 @@
-// ===== VARIABLES GLOBALES =====
 // Estas variables se usan en toda la aplicación
+let slideActual = 0; 
+let carrito = []; 
 
-let slideActual = 0; // Índice del slide actual del carrusel
-let carrito = []; // Array que guarda los productos del carrito
-
-// Base de datos de productos (simulada)
 // En una aplicación real, esto vendría de una base de datos
 const productos = [
     {
@@ -90,17 +87,16 @@ const productos = [
 function cambiarSlide(direccion) {
     const slides = document.querySelectorAll('.slide');
     
-    // Quitar la clase 'activo' del slide actual
+    
     slides[slideActual].classList.remove('activo');
     
-    // Calcular el nuevo índice
+
     slideActual += direccion;
     
-    // Si llegamos al final, volver al principio
+    
     if (slideActual >= slides.length) {
         slideActual = 0;
     }
-    // Si vamos hacia atrás desde el primero, ir al último
     else if (slideActual < 0) {
         slideActual = slides.length - 1;
     }
@@ -129,10 +125,10 @@ function irAProductos() {
 
 /**
  * Agrega un producto al carrito
- * @param {number} productoId - ID del producto a agregar
+ * @param {number} productoId
  */
 function agregarAlCarrito(productoId) {
-    // Buscar el producto en la base de datos
+
     const producto = productos.find(p => p.id === productoId);
     
     if (!producto) {
@@ -140,63 +136,54 @@ function agregarAlCarrito(productoId) {
         return;
     }
     
-    // Verificar si el producto ya está en el carrito
+    
     const productoExistente = carrito.find(item => item.id === productoId);
     
     if (productoExistente) {
-        // Si ya existe, aumentar la cantidad
+        
         productoExistente.cantidad += 1;
     } else {
-        // Si no existe, agregarlo con cantidad 1
+        
         carrito.push({
-            ...producto, // Copiar todas las propiedades del producto
+            ...producto, 
             cantidad: 1
         });
     }
     
-    // Actualizar la interfaz
+    
     actualizarContadorCarrito();
     mostrarNotificacion(producto.nombre + ' agregado al carrito');
     
-    // Guardar en localStorage para que persista al recargar la página
+
     localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-/**
- * Actualiza el número que aparece en el icono del carrito
- */
 function actualizarContadorCarrito() {
     const contador = document.getElementById('carrito-contador');
-    // Sumar todas las cantidades de productos en el carrito
+
     const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
     contador.textContent = totalItems;
 }
 
-/**
- * Abre el modal del carrito
- */
+
 function abrirCarrito() {
     const modal = document.getElementById('modal-carrito');
     modal.style.display = 'block';
     mostrarProductosCarrito();
 }
 
-/**
- * Cierra el modal del carrito
- */
+
+// Cierra el modal del carrito
 function cerrarCarrito() {
     const modal = document.getElementById('modal-carrito');
     modal.style.display = 'none';
 }
 
-/**
- * Muestra todos los productos del carrito en el modal
- */
+// Muestra todos los productos del carrito en el modal
 function mostrarProductosCarrito() {
     const contenedor = document.getElementById('productos-carrito');
     const totalElement = document.getElementById('total-carrito');
     
-    // Si el carrito está vacío
     if (carrito.length === 0) {
         contenedor.innerHTML = '<p style="text-align: center; color: #666;">Tu carrito está vacío</p>';
         totalElement.textContent = '00.00';
@@ -206,7 +193,7 @@ function mostrarProductosCarrito() {
     let html = '';
     let total = 0;
     
-    // Crear HTML para cada producto en el carrito
+    
     carrito.forEach(function(item) {
         const subtotal = item.precio * item.cantidad;
         total += subtotal;
@@ -240,23 +227,24 @@ function mostrarProductosCarrito() {
  * @param {number} productoId - ID del producto
  * @param {number} cambio - Cantidad a cambiar (+1 o -1)
  */
+
 function cambiarCantidad(productoId, cambio) {
     const item = carrito.find(item => item.id === productoId);
     
     if (item) {
         item.cantidad += cambio;
+    
         
-        // Si la cantidad llega a 0, eliminar el producto
         if (item.cantidad <= 0) {
             eliminarDelCarrito(productoId);
             return;
         }
         
-        // Actualizar la interfaz
+        
         actualizarContadorCarrito();
         mostrarProductosCarrito();
         
-        // Guardar en localStorage
+    
         localStorage.setItem('carrito', JSON.stringify(carrito));
     }
 }
@@ -265,37 +253,33 @@ function cambiarCantidad(productoId, cambio) {
  * Elimina completamente un producto del carrito
  * @param {number} productoId - ID del producto a eliminar
  */
+
+
 function eliminarDelCarrito(productoId) {
-    // Filtrar el carrito para quitar el producto
+    
     carrito = carrito.filter(item => item.id !== productoId);
     
-    // Actualizar la interfaz
+    
     actualizarContadorCarrito();
     mostrarProductosCarrito();
     
-    // Guardar en localStorage
+    
     localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-/**
- * Procede al proceso de pago
- */
+
 function irAPagar() {
     if (carrito.length === 0) {
         alert('Tu carrito está vacío');
         return;
     }
     
-    // Cerrar modal del carrito
+
     cerrarCarrito();
     
-    // Mostrar modal de pago
     mostrarModalPago();
 }
 
-/**
- * Muestra el modal de pago simulado
- */
 function mostrarModalPago() {
     const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
     
@@ -351,9 +335,7 @@ function mostrarModalPago() {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 }
 
-/**
- * Cierra el modal de pago
- */
+
 function cerrarModalPago() {
     const modal = document.getElementById('modal-pago');
     if (modal) {
@@ -362,13 +344,13 @@ function cerrarModalPago() {
 }
 
 /**
- * Procesa el pago (simulado)
+ * Procesa el pago
  * @param {Event} event - Evento del formulario
  */
 function procesarPago(event) {
     if (event) event.preventDefault();
     
-    // Simular procesamiento de pago
+
     const modalBody = document.querySelector('#modal-pago .modal-body');
     modalBody.innerHTML = `
         <div style="text-align: center; padding: 2rem;">
@@ -376,9 +358,9 @@ function procesarPago(event) {
         </div>
     `;
     
-    // Simular delay de procesamiento
+    
     setTimeout(function() {
-        // Mostrar confirmación
+
         modalBody.innerHTML = `
             <div style="text-align: center; padding: 2rem;">
                 <i class="fas fa-check-circle" style="font-size: 4rem; color: #27ae60; margin-bottom: 1rem;"></i>
@@ -389,38 +371,32 @@ function procesarPago(event) {
             </div>
         `;
         
-        // Cambiar botones
+    
         const modalFooter = document.querySelector('#modal-pago .modal-footer');
         modalFooter.innerHTML = `
             <button class="btn-principal" onclick="finalizarCompra()">Continuar Comprando</button>
         `;
         
-    }, 2000); // Esperar 2 segundos
+    }, 2000); 
 }
 
-/**
- * Finaliza el proceso de compra
- */
 function finalizarCompra() {
-    // Vaciar carrito
+    
     carrito = [];
     localStorage.removeItem('carrito');
     
-    // Actualizar interfaz
+    
     actualizarContadorCarrito();
     
-    // Cerrar modal
+
     cerrarModalPago();
     
-    // Mostrar notificación
+    
     mostrarNotificacion('¡Gracias por tu compra!');
 }
 
 // ===== FUNCIONES DE PRODUCTOS =====
 
-/**
- * Carga y muestra todos los productos en la página de productos
- */
 function cargarProductos() {
     const contenedor = document.getElementById('todos-productos');
     if (!contenedor) return; // No estamos en la página de productos
@@ -428,9 +404,7 @@ function cargarProductos() {
     mostrarProductos(productos);
 }
 
-/**
- * Carga productos destacados en la página principal
- */
+
 function cargarProductosDestacados() {
     const contenedor = document.getElementById('productos-destacados');
     if (!contenedor) return; // No estamos en la página principal
@@ -503,14 +477,13 @@ function mostrarProductosDestacados(listaProductos) {
  * @param {string} categoria - Categoría a filtrar ('todos' para mostrar todos)
  */
 function filtrarProductos(categoria) {
-    // Actualizar botones de filtro
+    
     const botones = document.querySelectorAll('.filtro-btn');
     botones.forEach(function(btn) {
         btn.classList.remove('activo');
     });
     event.target.classList.add('activo');
     
-    // Filtrar productos
     let productosFiltrados;
     if (categoria === 'todos') {
         productosFiltrados = productos;
@@ -520,7 +493,6 @@ function filtrarProductos(categoria) {
         });
     }
     
-    // Mostrar productos filtrados
     mostrarProductos(productosFiltrados);
 }
 
@@ -532,27 +504,24 @@ function verDetalleProducto(productoId) {
     const producto = productos.find(p => p.id === productoId);
     if (!producto) return;
     
-    // Llenar el modal con los datos del producto
+    
     document.getElementById('modal-imagen').src = producto.imagen;
     document.getElementById('modal-imagen').alt = producto.nombre;
     document.getElementById('modal-nombre').textContent = producto.nombre;
     document.getElementById('modal-precio').textContent = '$' + producto.precio.toFixed(2);
     document.getElementById('modal-descripcion').textContent = producto.descripcion;
     
-    // Configurar botón de agregar al carrito
+    
     const btnAgregar = document.getElementById('modal-agregar');
     btnAgregar.onclick = function() {
         agregarAlCarrito(productoId);
         cerrarModalProducto();
     };
-    
-    // Mostrar modal
+
     document.getElementById('modal-producto').style.display = 'block';
 }
 
-/**
- * Cierra el modal de detalles del producto
- */
+
 function cerrarModalProducto() {
     document.getElementById('modal-producto').style.display = 'none';
 }
@@ -564,9 +533,8 @@ function cerrarModalProducto() {
  * @param {Event} event - Evento del formulario
  */
 function enviarFormulario(event) {
-    event.preventDefault(); // Evitar que se recargue la página
+    event.preventDefault();
     
-    // Obtener datos del formulario
     const nombre = document.getElementById('nombre').value;
     const email = document.getElementById('email').value;
     const telefono = document.getElementById('telefono').value;
@@ -581,17 +549,17 @@ function enviarFormulario(event) {
     submitBtn.disabled = true;
     
     setTimeout(function() {
-        // Mostrar mensaje de éxito
+    
         alert('¡Mensaje enviado correctamente! Te responderemos pronto.');
         
-        // Limpiar formulario
+        
         event.target.reset();
         
-        // Restaurar botón
+        
         submitBtn.textContent = textoOriginal;
         submitBtn.disabled = false;
         
-        // En una aplicación real, aquí enviarías los datos al servidor
+    
         console.log('Datos del formulario:', {
             nombre: nombre,
             email: email,
@@ -609,7 +577,7 @@ function enviarFormulario(event) {
  * @param {string} mensaje - Mensaje a mostrar
  */
 function mostrarNotificacion(mensaje) {
-    // Crear elemento de notificación
+
     const notificacion = document.createElement('div');
     notificacion.style.cssText = `
         position: fixed;
@@ -625,10 +593,10 @@ function mostrarNotificacion(mensaje) {
     `;
     notificacion.textContent = mensaje;
     
-    // Agregar al DOM
+    
     document.body.appendChild(notificacion);
     
-    // Eliminar después de 3 segundos
+    
     setTimeout(function() {
         notificacion.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(function() {
@@ -639,9 +607,6 @@ function mostrarNotificacion(mensaje) {
     }, 3000);
 }
 
-/**
- * Carga el carrito desde localStorage
- */
 function cargarCarritoDesdeStorage() {
     const carritoGuardado = localStorage.getItem('carrito');
     if (carritoGuardado) {
@@ -656,21 +621,21 @@ function cargarCarritoDesdeStorage() {
  * Función que se ejecuta cuando la página termina de cargar
  */
 document.addEventListener('DOMContentLoaded', function() {
-    // Cargar carrito desde localStorage
+    
     cargarCarritoDesdeStorage();
     
-    // Iniciar carrusel automático si estamos en la página principal
+    
     if (document.querySelector('.carrusel-container')) {
         iniciarCarruselAutomatico();
     }
     
-    // Cargar productos si estamos en la página de productos
+
     cargarProductos();
     
-    // Cargar productos destacados si estamos en la página principal
+    
     cargarProductosDestacados();
     
-    // Cerrar modales al hacer clic fuera de ellos
+    
     window.addEventListener('click', function(event) {
         const modalCarrito = document.getElementById('modal-carrito');
         const modalProducto = document.getElementById('modal-producto');
@@ -687,7 +652,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Agregar animaciones CSS para las notificaciones
+    
     const style = document.createElement('style');
     style.textContent = `
         @keyframes slideInRight {
@@ -714,57 +679,3 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
-
-/* 
-===== DOCUMENTACIÓN DEL CÓDIGO =====
-
-Este archivo JavaScript maneja toda la funcionalidad del ecommerce MenStyle:
-
-1. VARIABLES GLOBALES:
-   - slideActual: Controla qué slide del carrusel se está mostrando
-   - carrito: Array que guarda todos los productos agregados al carrito
-   - productos: Base de datos simulada con todos los productos disponibles
-
-2. FUNCIONES DEL CARRUSEL:
-   - cambiarSlide(): Cambia entre slides del carrusel
-   - iniciarCarruselAutomatico(): Hace que el carrusel cambie automáticamente
-   - irAProductos(): Redirige a la página de productos
-
-3. FUNCIONES DEL CARRITO:
-   - agregarAlCarrito(): Añade productos al carrito
-   - actualizarContadorCarrito(): Actualiza el número en el icono del carrito
-   - abrirCarrito() / cerrarCarrito(): Controlan el modal del carrito
-   - mostrarProductosCarrito(): Muestra todos los productos en el carrito
-   - cambiarCantidad(): Permite aumentar/disminuir cantidad de productos
-   - eliminarDelCarrito(): Quita productos del carrito completamente
-
-4. FUNCIONES DE PAGO:
-   - irAPagar(): Inicia el proceso de pago
-   - mostrarModalPago(): Muestra el formulario de pago
-   - procesarPago(): Simula el procesamiento del pago
-   - finalizarCompra(): Completa la compra y vacía el carrito
-
-5. FUNCIONES DE PRODUCTOS:
-   - cargarProductos(): Carga todos los productos en la página
-   - mostrarProductos(): Muestra productos en formato de tarjetas
-   - filtrarProductos(): Filtra productos por categoría
-   - verDetalleProducto(): Muestra detalles de un producto específico
-
-6. FUNCIONES DE CONTACTO:
-   - enviarFormulario(): Maneja el envío del formulario de contacto
-
-7. FUNCIONES AUXILIARES:
-   - mostrarNotificacion(): Muestra mensajes temporales al usuario
-   - cargarCarritoDesdeStorage(): Recupera el carrito guardado
-
-8. PERSISTENCIA DE DATOS:
-   - Usa localStorage para guardar el carrito entre sesiones
-   - El carrito se mantiene aunque cierres y abras el navegador
-
-9. EVENTOS:
-   - DOMContentLoaded: Se ejecuta cuando la página termina de cargar
-   - Click en modales: Permite cerrar modales haciendo clic fuera
-
-El código está diseñado para ser fácil de entender y modificar por principiantes.
-Cada función tiene comentarios explicando qué hace y cómo funciona.
-*/
