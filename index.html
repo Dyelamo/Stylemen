@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MenStyle - Accesorios para Hombres</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+        
+            <div class="logo">
+                <h2>MenStyle</h2>
+            </div>
+            
+    
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                <li><a href="productos.html" class="nav-link">Productos</a></li>
+                <li><a href="acerca.html" class="nav-link">Acerca de</a></li>
+                <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+            </ul>
+            
+        
+            <div class="carrito-icono" onclick="abrirCarrito()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="carrito-contador" id="carrito-contador">0</span>
+            </div>
+        </div>
+    </nav>
+
+
+    <section class="carrusel">
+        <div class="carrusel-container">
+            <!-- Slide 1 -->
+            <div class="slide activo">
+                <img src="fotos/relojes-caros.jpg" alt="Relojes elegantes">
+                <div class="slide-contenido">
+                    <h1>Relojes Elegantes</h1>
+                    <p>Descubre nuestra colección premium</p>
+                    <button class="btn-principal" onclick="irAProductos()">Ver Productos</button>
+                </div>
+            </div>
+            
+            
+            <div class="slide">
+                <img src="fotos/billetera.png" alt="Billeteras de cuero">
+                <div class="slide-contenido">
+                    <h1>Billeteras de Cuero</h1>
+                    <p>Calidad y estilo en cada detalle</p>
+                    <button class="btn-principal" onclick="irAProductos()">Comprar Ahora</button>
+                </div>
+            </div>
+            
+            
+            <div class="slide">
+                <img src="fotos/gafas-sol.jpg" alt="Gafas de sol">
+                <div class="slide-contenido">
+                    <h1>Gafas de Sol</h1>
+                    <p>Protección y estilo para cada ocasión</p>
+                    <button class="btn-principal" onclick="irAProductos()">Explorar</button>
+                </div>
+            </div>
+            
+            
+            <button class="carrusel-btn anterior" onclick="cambiarSlide(-1)">❮</button>
+            <button class="carrusel-btn siguiente" onclick="cambiarSlide(1)">❯</button>
+        </div>
+    </section>
+
+    
+    <section class="productos-destacados">
+        <div class="container">
+            <h2>Productos Destacados</h2>
+            <div class="productos-grid" id="productos-destacados">
+                <!-- Los productos se cargan con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="beneficios">
+        <div class="container">
+            <div class="beneficios-grid">
+                <div class="beneficio">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Envío Gratis</h3>
+                    <p>En compras mayores a $100</p>
+                </div>
+                
+                <div class="beneficio">
+                    <i class="fas fa-undo"></i>
+                    <h3>Devoluciones</h3>
+                    <p>30 días para cambios</p>
+                </div>
+                
+                <div class="beneficio">
+                    <i class="fas fa-headset"></i>
+                    <h3>Soporte 24/7</h3>
+                    <p>Atención al cliente siempre</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-contenido">
+                <div class="footer-seccion">
+                    <h3>MenStyle</h3>
+                    <p>Tu tienda de confianza para accesorios masculinos de calidad.</p>
+                </div>
+                
+                <div class="footer-seccion">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-seccion">
+                    <h4>Síguenos</h4>
+                    <div class="redes-sociales">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 MenStyle. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <div id="modal-carrito" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2>Carrito de Compras</h2>
+                <span class="cerrar" onclick="cerrarCarrito()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div id="productos-carrito"></div>
+                <div class="carrito-total">
+                    <h3>Total: $<span id="total-carrito">0.00</span></h3>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secundario" onclick="cerrarCarrito()">Seguir Comprando</button>
+                <button class="btn-principal" onclick="irAPagar()">Pagar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>

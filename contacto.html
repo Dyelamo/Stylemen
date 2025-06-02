@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - MenStyle</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>MenStyle</h2>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="productos.html" class="nav-link">Productos</a></li>
+                <li><a href="acerca.html" class="nav-link">Acerca de</a></li>
+                <li><a href="contacto.html" class="nav-link active">Contacto</a></li>
+            </ul>
+            
+            <div class="carrito-icono" onclick="abrirCarrito()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="carrito-contador" id="carrito-contador">0</span>
+            </div>
+        </div>
+    </nav>
+
+    
+    <section class="contacto-hero">
+        <div class="container">
+            <h1>Contáctanos</h1>
+            <p>Estamos aquí para ayudarte. Envíanos un mensaje y te responderemos pronto.</p>
+        </div>
+    </section>
+
+    <section class="contacto-contenido">
+        <div class="container">
+            <div class="contacto-grid">
+            
+                <div class="formulario-contacto">
+                    <h2>Envíanos un Mensaje</h2>
+                    <form id="formulario-contacto" onsubmit="enviarFormulario(event)">
+                        <div class="grupo-form">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        
+                        <div class="grupo-form">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="grupo-form">
+                            <label for="telefono">Teléfono (Opcional)</label>
+                            <input type="tel" id="telefono" name="telefono">
+                        </div>
+                        
+                        <div class="grupo-form">
+                            <label for="asunto">Asunto</label>
+                            <select id="asunto" name="asunto" required>
+                                <option value="">Selecciona un asunto</option>
+                                <option value="consulta">Consulta General</option>
+                                <option value="pedido">Problema con Pedido</option>
+                                <option value="devolucion">Devolución</option>
+                                <option value="sugerencia">Sugerencia</option>
+                            </select>
+                        </div>
+                        
+                        <div class="grupo-form">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-principal">Enviar Mensaje</button>
+                    </form>
+                </div>
+                
+                
+                <div class="info-contacto">
+                    <h2>Información de Contacto</h2>
+                    
+                    <div class="contacto-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Dirección</h3>
+                            <p>CC Guatapuri<br>Valledupar, Cesar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contacto-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Teléfono</h3>
+                            <p>+57 313 7263224</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contacto-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@menstyle.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contacto-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Horarios</h3>
+                            <p>Lun - Vie: 9:00 AM - 6:00 PM<br>
+                               Sáb: 10:00 AM - 4:00 PM<br>
+                               Dom: Cerrado</p>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="redes-contacto">
+                        <h3>Síguenos</h3>
+                        <div class="redes-sociales">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="mapa-seccion">
+        <div class="container">
+            <h2>Nuestra Ubicación</h2>
+            <div class="mapa-placeholder">
+                <img src="fotos/google-maps.png" alt="Mapa de ubicación">
+                <div class="mapa-overlay">
+                    <p>📍 CC. Guatapuri, Valledupar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal-carrito" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h2>Carrito de Compras</h2>
+                <span class="cerrar" onclick="cerrarCarrito()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div id="productos-carrito"></div>
+                <div class="carrito-total">
+                    <h3>Total: $<span id="total-carrito">0.00</span></h3>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secundario" onclick="cerrarCarrito()">Seguir Comprando</button>
+                <button class="btn-principal" onclick="irAPagar()">Pagar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-contenido">
+                <div class="footer-seccion">
+                    <h3>MenStyle</h3>
+                    <p>Tu tienda de confianza para accesorios masculinos de calidad.</p>
+                </div>
+                
+                <div class="footer-seccion">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-seccion">
+                    <h4>Síguenos</h4>
+                    <div class="redes-sociales">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 MenStyle. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
