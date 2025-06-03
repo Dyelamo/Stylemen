@@ -9,7 +9,7 @@ const productos = [
         nombre: "Reloj Clásico",
         precio: 400000.00,
         categoria: "relojes",
-        imagen: "/fotos/reloj-clasico.png?height=250&width=250",
+        imagen: "/reloj-clasico.png",
         descripcion: "Reloj elegante de acero inoxidable con movimiento de cuarzo suizo. Perfecto para ocasiones formales y casuales."
     },
     {
@@ -17,7 +17,7 @@ const productos = [
         nombre: "Billetera Premium",
         precio: 120000.00,
         categoria: "billeteras",
-        imagen: "/fotos/billetera-premiun.png",
+        imagen: "/billetera-premiun.png",
         descripcion: "Billetera de cuero genuino con múltiples compartimentos para tarjetas y billetes. Diseño minimalista y elegante."
     },
     {
@@ -25,7 +25,7 @@ const productos = [
         nombre: "Gafas Deportivas",
         precio: 159000.00,
         categoria: "gafas",
-        imagen: "/fotos/gafas-deportivas.png",
+        imagen: "/gafas-deportivas.png",
         descripcion: "Gafas de sol con protección UV400 y marco resistente. Ideales para actividades deportivas y al aire libre."
     },
     {
@@ -33,7 +33,7 @@ const productos = [
         nombre: "Reloj Deportivo",
         precio: 200000.00,
         categoria: "relojes",
-        imagen: "/fotos/reloj-deportivo.png",
+        imagen: "reloj-deportivo.png",
         descripcion: "Reloj deportivo resistente al agua con cronómetro y múltiples funciones. Perfecto para atletas y aventureros."
     },
     {
@@ -41,7 +41,7 @@ const productos = [
         nombre: "Billetera Compacta",
         precio: 60000.00,
         categoria: "billeteras",
-        imagen: "/fotos/billetera-compacta.png",
+        imagen: "billetera-compacta.png",
         descripcion: "Billetera compacta de cuero sintético con diseño moderno. Ideal para llevar lo esencial de forma organizada."
     },
     {
@@ -49,7 +49,7 @@ const productos = [
         nombre: "Gafas Clásicas",
         precio: 129000.00,
         categoria: "gafas",
-        imagen: "/fotos/gafas-clasicas.png",
+        imagen: "gafas-clasicas.png",
         descripcion: "Gafas de sol clásicas con lentes polarizadas y marco de acetato. Un estilo atemporal que nunca pasa de moda."
     },
     {
@@ -57,7 +57,7 @@ const productos = [
         nombre: "Cinturón de Cuero",
         precio: 79999.00,
         categoria: "cinturones",
-        imagen: "/fotos/cinturon-cuero.png",
+        imagen: "cinturon-cuero.png",
         descripcion: "Cinturón de cuero genuino con hebilla de metal pulido. Accesorio esencial para cualquier guardarropa masculino."
     },
     {
@@ -65,7 +65,7 @@ const productos = [
         nombre: "Reloj Inteligente",
         precio: 799999.00,
         categoria: "relojes",
-        imagen: "/fotos/teloj-inteligente.png",
+        imagen: "teloj-inteligente.png",
         descripcion: "Reloj inteligente con múltiples funciones de salud y conectividad. La tecnología al servicio del estilo."
     },
     {
@@ -73,7 +73,7 @@ const productos = [
         nombre: "Gafas Aviador",
         precio: 189990.00,
         categoria: "gafas",
-        imagen: "/fotos/gafas-aviador.png",
+        imagen: "/gafas-aviador.png",
         descripcion: "Gafas estilo aviador con marco dorado y lentes espejadas. Un clásico que define personalidad y estilo."
     }
 ];
